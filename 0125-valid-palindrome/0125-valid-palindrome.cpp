@@ -1,33 +1,67 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        char c;
-        int n=s.length();
-        int i;
-        for (i=0;i<s.length();i++)///as not a copy so n changes length after erase
-        {
-            c=s[i];
-            if(s[i]>=65 && s[i]<=90) //use s[i] to make actual changes
-            {
-                s[i]=s[i]+32;
-            }
-            if(!(s[i] >=65 && s[i]<=90) && !(s[i]>=97 && s[i]<=122) && !(s[i]>=48 && s[i]<=57))
-            {
-                s.erase(i,1); //del 1 ch at i index
-                i--;
+        int l = 0, r = s.length() - 1;
 
-            }
+        while (l < r) {
+
+            while (l < r && !isalnum(s[l]))
+                l++;
+
+            while (l < r && !isalnum(s[r]))
+                r--;
+
+            if (tolower(s[l]) != tolower(s[r]))
+                return false;
+
+            l++;
+            r--;
         }
-       int l=0, r=s.length()-1;
-       while(l<=r)
-       {
-        if(s[l]!=s[r])
-        //return true;
-        return false;
-        else
-        l++;
-        r--;
-       } 
-       return true;
+
+        return true;
     }
-};
+};/*class Solution {
+public:
+    bool isPalindrome(string s) {
+
+        int l = 0;
+        int r = s.length() - 1;
+
+        while (l < r) {
+
+            // Skip non-alphanumeric from left
+            while (l < r &&
+                  !((s[l] >= 'A' && s[l] <= 'Z') ||
+                    (s[l] >= 'a' && s[l] <= 'z') ||
+                    (s[l] >= '0' && s[l] <= '9')))
+            {
+                l++;
+            }
+
+            // Skip non-alphanumeric from right
+            while (l < r &&
+                  !((s[r] >= 'A' && s[r] <= 'Z') ||
+                    (s[r] >= 'a' && s[r] <= 'z') ||
+                    (s[r] >= '0' && s[r] <= '9')))
+            {
+                r--;
+            }
+
+            // Convert to lowercase
+            if (s[l] >= 'A' && s[l] <= 'Z')
+                s[l] += 32;
+
+            if (s[r] >= 'A' && s[r] <= 'Z')
+                s[r] += 32;
+
+            // Compare
+            if (s[l] != s[r])
+                return false;
+
+            l++;
+            r--;
+        }
+
+        return true;
+    }
+};*/
